@@ -11,6 +11,8 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
     'plugin:prettier/recommended',
+    'plugin:import/errors',
+    'plugin:import/warnings',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -20,7 +22,7 @@ module.exports = {
       jsx: true,
     },
   },
-  plugins: ['react', 'prettier'],
+  plugins: ['react', 'prettier', 'import'],
   rules: {
     'prettier/prettier': [
       'error',
@@ -31,6 +33,23 @@ module.exports = {
       },
     ],
     'sort-imports': ['error', { ignoreDeclarationSort: true }],
+    'import/order': [
+      'error',
+      {
+        groups: [
+          'builtin',
+          'external',
+          'internal',
+          'parent',
+          'sibling',
+          'index',
+          'object',
+          'type',
+        ],
+        'newlines-between': 'always',
+        alphabetize: { order: 'asc', caseInsensitive: true },
+      },
+    ],
     'no-unused-vars': [
       'error',
       {
@@ -44,6 +63,16 @@ module.exports = {
   settings: {
     react: {
       version: 'detect',
+    },
+    'import/resolver': {
+      node: {
+        paths: ['src'],
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
+      typescript: {
+        alwaysTryTypes: true,
+        project: './tsconfig.json',
+      },
     },
   },
 };
