@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { toast } from 'sonner';
 
 const signInForm = z.object({
   email: z.string().email()
@@ -16,7 +17,7 @@ export const SignIn = () => {
   const { register, handleSubmit, formState: {isSubmitting} } = useForm<SignInForm>();
 
   const handleSignIn = (data: SignInForm) => {
-    console.log(data.email);
+    toast.success('Enviamos um link de autenticação para o seu e-mail.')
   }
 
   return (
